@@ -4,6 +4,16 @@ import bcript from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 
+const getRaiz = async(req,res)=>{
+    try {
+        res.json({ok:true, result:"todo esta ok en la raiz"})
+    } catch (error) {
+        console.log(error)
+        handleErrorResponse(res,error.code);
+    }
+};
+
+
 
 const regiterUsuario = async (req,res)=>{
     const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol} = req.body;
@@ -22,13 +32,15 @@ const regiterUsuario = async (req,res)=>{
             rol
         });
         
-        const token = jwt.sign({ id_usuario: user.id_usuario }, process.env.JWT_SECRET)
+        const token = jwt.sign({ id_usuario: newUser.id_usuario }, process.env.JWT_SECRET)
         
         const { password: _, ...user } = newUser;
         return res.status(201).json({
             token,
             user})
-    
+
+        
+        
     } catch (error) {
         const { status, message } = handleErrors(error.code);
         console.log(error, message);
@@ -49,7 +61,7 @@ try {
     if (!isMatch) {
         return res.status(400).json({error:"invalid credencial"})
     }
-    const token = jwt.sign({ id_usuario: user.id_usuario }, process.env.JWT_SECRET)
+    const token = jwt.sign({ id_usuario: newUser.id_usuario }, process.env.JWT_SECRET)
     
     return res.status(200).json({ token, correo });
 
@@ -61,6 +73,7 @@ try {
 
 }
 export const userController = {
+    getRaiz,
     regiterUsuario,
     loginUsuario
 };
