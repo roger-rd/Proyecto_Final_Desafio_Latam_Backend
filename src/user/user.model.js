@@ -16,13 +16,8 @@ const findOne = async (correo) =>{
   const { rows } = await pool.query(query, values);
   return rows[0];
 }
-// hay que fijarse en los valores de la tabla
-// const findOne = async (email) =>{ 
-//   const query = "SELECT * FROM usuarios  WHERE  email =$1"
-//   const values = [correo];
-//   const { rows } = await pool.query(query, values);
-//   return rows[0];
-// }
+
+
 
 const updateUserById = async (id_usuario, updates) => {
   const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol } = updates;
@@ -32,9 +27,24 @@ const updateUserById = async (id_usuario, updates) => {
   return rows[0];
 };
 
+const findAll = async ()=>{
+  const {rows} = await pool.query("SELECT * FROM  usuarios")
+  return rows;
+}
+
+const findById = async(id)=>{
+  const text = "SELECT * FROM  usuarios WHERE id_usuario = $1";
+  const {rows} = await pool.query(text,[id]);
+  if(rows.length === 0 ){
+      throw ({code:"404"})
+  }
+  return rows[0];
+};
 
 
 export const userModel = {
+  findAll,
+  findById,
   createUser,
   findOne,
   updateUserById

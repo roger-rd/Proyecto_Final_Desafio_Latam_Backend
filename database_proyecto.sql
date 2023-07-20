@@ -21,7 +21,7 @@ CREATE TABLE usuarios (
 	rol varchar(20)
 );
 
-SELECT * FROM usuarios;
+  SELECT * FROM usuarios;
 -- INSERT INTO usuarios (nombre  ,	apellido ,	rut ,telefono ,direccion,numero_de_direccion,correo ,password,rol) VALUES(
 --   'Juan',
 --   'Pérez',
