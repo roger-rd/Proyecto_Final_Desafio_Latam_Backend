@@ -9,6 +9,7 @@ import {userController} from "./user.controller.js";
 
 const router = Router();
 
+router.get('/', userController.getRaiz);
 router.post('/register', createValidateBody, userController.regiterUsuario )
 router.post ('/login',loginValidateBody, userController.loginUsuario );
 // Ruta para actualizar un usuario por su ID
