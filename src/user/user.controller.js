@@ -1,113 +1,125 @@
 
 import { userModel } from "./user.model.js";
-import {handleErrors} from "../database/error.js";
+import { handleErrors } from "../database/error.js";
 import bcript from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 
-const getRaiz = async(req,res)=>{
+const getRaiz = async (req, res) => {
     try {
-        res.json({ok:true, result:"todo esta ok en la raiz"})
+        res.json({ ok: true, result: "todo esta ok en la raiz" })
     } catch (error) {
         const { status, message } = handleErrors(error.code);
         console.log(error, message);
         return res.status(status).json({ ok: false, result: message });
-    } 
+    }
 };
 
 const getAllUser = async (req, res) => {
     try {
-      const users = await userModel.findAll(); 
-      res.status(200).json(users);
+        const users = await userModel.findAll();
+        res.status(200).json(users);
     } catch (error) {
         const { status, message } = handleErrors(error.code);
         console.log(error, message);
         return res.status(status).json({ ok: false, result: message });
-    } 
-  };
+    }
+};
 
-  const getIdUser = async (req,res)=>{
-    const{id_usuario}  = req.params
+const getIdUser = async (req, res) => {
+    const { id_usuario } = req.params
     try {
-    // const usuario = usuario.find(u => u.id_usuario == id_usuario)
-    const usuario = await userModel.findById(id_usuario);
-    if (usuario) res.status(200).send(usuario)
-    else res.status(404).send({ message: "No se encontró ningún usuario con ese id" })
+        // const usuario = usuario.find(u => u.id_usuario == id_usuario)
+        const usuario = await userModel.findById(id_usuario);
+        if (usuario) res.status(200).send(usuario)
+        else res.status(404).send({ message: "No se encontró ningún usuario con ese id" })
     } catch (error) {
         const { status, message } = handleErrors(error.code);
         console.log(error, message);
         return res.status(status).json({ ok: false, result: message });
-    } 
+    }
 };
 
 
 
 
-const regiterUsuario = async (req,res)=>{
-    const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol} = req.body;
+const regiterUsuario = async (req, res) => {
+    const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol } = req.body;
 
     try {
-        const newUser = await userModel.createUser({ 
+        const newUser = await userModel.createUser({
             nombre,
-            apellido, 
-            rut, 
-            telefono, 
-            direccion, 
-            numero_de_direccion, 
+            apellido,
+            rut,
+            telefono,
+            direccion,
+            numero_de_direccion,
             correo,
-            password:bcript. hashSync(password, 10),
+            password: bcript.hashSync(password, 10),
             rol
         });
-        
+
         const token = jwt.sign({ id_usuario: newUser.id_usuario }, process.env.JWT_SECRET)
         const { password: _, ...user } = newUser;
         return res.status(201).json({
-            user})
-        
+            user
+        })
+
     } catch (error) {
         const { status, message } = handleErrors(error.code);
         console.log(error, message);
         return res.status(status).json({ ok: false, result: message });
-    } 
+    }
 }
 
 const loginUsuario = async (req, res) => {
-    const  { correo, password} = req.body;
+    const { correo, password } = req.body;
 
     try {
         const user = await userModel.findOne(correo);
         if (!user) {
-            return res.status(400).json({error:"invalid credencial"})
+            return res.status(400).json({ error: "invalid credencial" })
         }
         const isMatch = bcript.compareSync(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({error:"invalid credencial"})
+            return res.status(400).json({ error: "invalid credencial" })
         }
         const token = jwt.sign({ id_usuario: user.id_usuario }, process.env.JWT_SECRET)
-        
+
         return res.status(200).json({ token, correo });
 
     } catch (error) {
         const { status, message } = handleErrors(error.code);
-            console.log(error, message);
-            return res.status(status).json({ ok: false, result: message });
+        console.log(error, message);
+        return res.status(status).json({ ok: false, result: message });
     }
 
 }
 
-const updateUser = async (req,res) => {
-    const {id_usuario} = req.params
-    const {nombre,apellido,direccion} = req.body
+const updateUser = async (req, res) => {
+    const { id_usuario } = req.params
+    const { nombre, apellido, direccion } = req.body
     try {
-        const result = await userModel.updateUserById (id_usuario, {nombre,apellido,direccion})
-        return res.status(200).json ({ok:true,result});
+        const result = await userModel.updateUserById(id_usuario, { nombre, apellido, direccion })
+        return res.status(200).json({ ok: true, result });
     } catch (error) {
         const { status, message } = handleErrors(error.code);
-            console.log(error, message);
-            return res.status(status).json({ ok: false, result: message });
+        console.log(error, message);
+        return res.status(status).json({ ok: false, result: message });
     }
-  };
+};
 
+const deleteUser = async (req, res) => {
+    const { id_usuario } = req.params;
+    try {
+        const result = await userModel.remove(id_usuario);
+        return res.status(200).json({ ok: true, result });
+    } catch (error) {
+        const { status, message } = handleErrors(error.code);
+        console.log(error, message);
+        return res.status(status).json({ ok: false, result: message });
+    }
+};
 
 
 /*// Función para actualizar un usuario por su ID
@@ -140,5 +152,6 @@ export const userController = {
     getIdUser,
     regiterUsuario,
     loginUsuario,
-    updateUser
+    updateUser,
+    deleteUser
 };

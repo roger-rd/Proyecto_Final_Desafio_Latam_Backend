@@ -16,5 +16,5 @@ router.post('/register', createValidateBody, userController.regiterUsuario )
 router.post ('/login',loginValidateBody, userController.loginUsuario );
 // Ruta para actualizar un usuario por su ID
 router.put('/update/:id_usuario', validateUpdateUser ,userController.updateUser);
-
+router.delete('/delete/:id_usuario', validateUpdateUser ,userController.deleteUser);
 export default router;
