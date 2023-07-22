@@ -64,7 +64,22 @@ describe ("Probando las rutas del backend", ()=>{
       });
     });
 
+    describe("DELETE /cafes/:id",() => {
+      it("Comprueba que se obtiene un código 200 al eliminar un usuario", async () => {
+          const id_usuario = 5;
 
+          const response = await request(app)
+          .delete(`/api/v1/user/delete/${invaliCafeId}`)
+          .set('Authorization', 'dummy-token');
+      
+          expect(response.status).toBe(404);
+          expect(response.body).toEqual({ message: 'No se encontró ningún cafe con ese id' });
+          });
+  });
+    
+    
+    
+    
 
 });
 

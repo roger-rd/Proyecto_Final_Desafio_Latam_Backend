@@ -29,7 +29,6 @@ const getAllUser = async (req, res) => {
 const getIdUser = async (req, res) => {
     const { id_usuario } = req.params
     try {
-        // const usuario = usuario.find(u => u.id_usuario == id_usuario)
         const usuario = await userModel.findById(id_usuario);
         if (usuario) res.status(200).send(usuario)
         else res.status(404).send({ message: "No se encontró ningún usuario con ese id" })
@@ -110,44 +109,37 @@ const updateUser = async (req, res) => {
     }
 };
 
+// const deleteUser = async (req, res) => {
+//     const { id_usuario } = req.params;
+//     try {
+//         //error en llammado al user model tenia remove
+//         const result = await userModel.removeUser(id_usuario);
+//         return res.status(200).json({ ok: true, result });
+//     } catch (error) {
+//         const { status, message } = handleErrors(error.code);
+//         console.log(error, message);
+//         return res.status(status).json({ ok: false, result: message });
+//     }
+// };
+
 const deleteUser = async (req, res) => {
-    const { id_usuario } = req.params;
     try {
-        //error en llammado al user model tenia remove
-        const result = await userModel.removeUser(id_usuario);
-        return res.status(200).json({ ok: true, result });
+        const {id_usuario}= req.params;
+        const deleteUser = await userModel.removeUser(id_usuario);
+
+        if(deleteUser){
+            res.send(deleteUser);
+        }else{
+            res.status(404).send({message:"NO se encuntro ningun usuario con ese ID"})
+        }
     } catch (error) {
         const { status, message } = handleErrors(error.code);
         console.log(error, message);
         return res.status(status).json({ ok: false, result: message });
     }
-};
+}
 
 
-/*// Función para actualizar un usuario por su ID
-const updateUser = async (req, res) => {
-    const id_usuario = req.params.id;
-    const updates = req.body;
-  
-    try {
-       //Verificar si el usuario con el ID proporcionado existe antes de actualizarlo
-      const existingUser = await userModel.findOne (id_usuario);
-      if (!existingUser) {
-        return res.status(404).json({ error: "El usuario no existe" });
-      }
-  
-      // Realizar la actualización del usuario utilizando la función updateUserById de tu modelo User
-      const updatedUser = await userModel.updateUserById(id_usuario, updates);
-  
-      // Opcionalmente, si deseas ocultar el campo de contraseña en la respuesta:
-      const { password: _, ...user } = updatedUser;
-      return res.status(200).json({ user });
-    } catch (error) {
-      const { status, message } = handleErrors(error.code);
-      console.log(error, message);
-      return res.status(status).json({ ok: false, result: message });
-    }
-  };*/
 export const userController = {
     getRaiz,
     getAllUser,

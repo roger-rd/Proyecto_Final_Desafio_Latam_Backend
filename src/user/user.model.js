@@ -51,7 +51,9 @@ const removeUser = async (id_usuario) => {
   const text = "DELETE FROM usuarios WHERE id_usuario = $1 RETURNING * "
   const { rows} = await pool.query (text, [id_usuario])
   return rows [0];
-}
+};
+
+
 
 export const userModel = {
   findAll,
