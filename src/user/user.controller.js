@@ -123,12 +123,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const {id_usuario}= req.params;
-        // const userIdTodelete = id_usuario.toString();
-
-        // if(req.userId !== userIdTodelete){
-        //     return res.status(403).json({message:"No tienes permiso para elimianar usuario"})
-        // };
-
+       
         const deleteUser = await userModel.removeUser(id_usuario);
 
         if(deleteUser){
