@@ -45,7 +45,7 @@ describe ("Probando las rutas del backend", ()=>{
 describe('POST /api/v1/user/login', () => {
   it('debe retornar un status code 200 y un token válido para un usuario existente con credenciales correctas', async () => {
     const loginData = {
-      correo: 'test2@example.com',
+      correo: "test12@example.com",
       password: '123456'
     };
 
@@ -55,6 +55,7 @@ describe('POST /api/v1/user/login', () => {
 
     expect(response.status).toBe(200);
     expect(response.body.token).toBeDefined();
+    
   });
 
   it('debe retornar un status code 500 si el usuario no existe o la contraseña es incorrecta', async () => {
@@ -72,23 +73,91 @@ describe('POST /api/v1/user/login', () => {
   });
 });
 
+
+describe("PUT /api/v1/user/update/:id_usuario/",() => {    
+  it('debe retornar un status code 200 al modificar el usuario', async () => {
+    const id_usuario = 2;
+
+      const response = await request(app)
+      .put(`/api/v1/user/update/${id_usuario}`)
+      .send({
+        nombre: "actualizado desde test prueba 3",
+        apellido: "test",
+        rut: "12345-9",
+        telefono: "1234560",
+        direccion: "Calle pedro",
+        numero_de_direccion: "123",
+        correo: "actualizado3@gmail.com",
+        password: "$2a$10$Wb12Jv2St6ZCdPc92tsAXu.tF865OkXKqdBd.Q9LqnmIkEXinio8q",
+        rol: "admin"
+      });
+
+    expect(response.status).toBe(200);
+    console.log(response.body);
+  });
+  
+  
+  
+  
+      it("Prueba que la ruta PUT /api/v1/user/update/:id_usuario devuelve un status code 400 si intentas actualizar un usuario enviando un id en los parámetros que sea diferente al id_usuario dentro del payload", async()=>{
+          const invalidUsuario = 30
+
+        const response = await request(app)
+        .put(`/api/v1/user/update/${invalidUsuario}`)
+        .send({
+          nombre: "actualizado",
+          apellido: "test3",
+          rut: "12345-9",
+          telefono: "1234560",
+          direccion: "Calle pedro",
+          numero_de_direccion: "123",
+          correo: "actualizado@gmail.com",
+          password: "$2a$10$Wb12Jv2St6ZCdPc92tsAXu.tF865OkXKqdBd.Q9LqnmIkEXinio8q",
+          rol: "admin"
+        });
+
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+        message: "No se encontró ningún usuario con ese ID",
+          ok: false,
+        });
+      });
+      
+
+
+    });
+
 describe("DELETE /api/v1/user/delete/:id_usuario", () => {
   it("Comprueba que se obtiene un código 200 al eliminar un usuario", async () => {
-    // 1. Generar un token válido usando jwt.sign() con la misma clave secreta (JWT_SECRET) que utilizas en otras partes de tu aplicación
-    const id_usuario = 5;
+    const id_usuario = 11;
     const token = jwt.sign({ id_usuario }, process.env.JWT_SECRET);
 
-    // 2. Realizar la solicitud de eliminación con el token válido
+
     const response = await request(app)
       .delete(`/api/v1/user/delete/${id_usuario}`)
       .set('Authorization', `Bearer ${token}`);
 
-    // 3. Verificar que la respuesta sea un código 200
+
     expect(response.status).toBe(200);
+    
+  });
+
+  it("se obtiene un error 404 sio se intenta borrar un usuario inexistente", async () => {
+    const id_usuario = 13;
+    const token = jwt.sign({ id_usuario }, process.env.JWT_SECRET);
+
+
+    const response = await request(app)
+      .delete(`/api/v1/user/delete/${id_usuario}`)
+      .set('Authorization', `Bearer ${token}`);
+
+
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({
+      message: "Usuario no encontrado",
+      });
   });
 });
-
-
 
 
 

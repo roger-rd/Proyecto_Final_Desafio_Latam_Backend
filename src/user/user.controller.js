@@ -98,8 +98,17 @@ const updateUser = async (req, res) => {
     const { id_usuario } = req.params;
     const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol  } = req.body
     try {
+        
+        const existingUser = await userModel.findById(id_usuario);
+        if (!existingUser) {
+            return res.status(400).json({ ok: false, message: "No se encontró ningún usuario con ese ID" });
+        }
+        
         const result = await userModel.updateUserById(id_usuario,{ nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol  })
+        
         return res.status(200).json({ ok: true, result });
+       
+        
     } catch (error) {
         const { status, message } = handleErrors(error.code);
         console.log(error, message);
