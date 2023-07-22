@@ -107,18 +107,6 @@ const updateUser = async (req, res) => {
     }
 };
 
-// const deleteUser = async (req, res) => {
-//     const { id_usuario } = req.params;
-//     try {
-//         //error en llammado al user model tenia remove
-//         const result = await userModel.removeUser(id_usuario);
-//         return res.status(200).json({ ok: true, result });
-//     } catch (error) {
-//         const { status, message } = handleErrors(error.code);
-//         console.log(error, message);
-//         return res.status(status).json({ ok: false, result: message });
-//     }
-// };
 
 const deleteUser = async (req, res) => {
     try {
