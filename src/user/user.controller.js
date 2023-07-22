@@ -5,6 +5,7 @@ import bcript from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 
+
 const getRaiz = async (req, res) => {
     try {
         res.json({ ok: true, result: "todo esta ok en la raiz" })
@@ -76,14 +77,11 @@ const loginUsuario = async (req, res) => {
     const { correo, password } = req.body;
 
     try {
-        const user = await userModel.findOne(correo);
-        if (!user) {
+        const result = await userModel.loginUser(correo);
+        if (!result.rowCount) {
             return res.status(400).json({ error: "invalid credencial" })
         }
-        const isMatch = bcript.compareSync(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ error: "invalid credencial" })
-        }
+        const user = result.rows[0];
         const token = jwt.sign({ id_usuario: user.id_usuario }, process.env.JWT_SECRET)
 
         return res.status(200).json({ token, correo });
@@ -125,6 +123,12 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const {id_usuario}= req.params;
+        // const userIdTodelete = id_usuario.toString();
+
+        // if(req.userId !== userIdTodelete){
+        //     return res.status(403).json({message:"No tienes permiso para elimianar usuario"})
+        // };
+
         const deleteUser = await userModel.removeUser(id_usuario);
 
         if(deleteUser){

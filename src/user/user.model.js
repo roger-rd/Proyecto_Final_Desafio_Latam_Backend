@@ -27,12 +27,12 @@ const createUser = async (user) => {
 
 
 
-const findOne = async (correo) =>{
-  const query = "SELECT * FROM usuarios  WHERE  correo =$1"
-  const values = [correo];
-  const { rows } = await pool.query(query, values);
-  return rows[0];
-}
+const loginUser = async (correo) =>{
+  const text = "SELECT * FROM usuarios WHERE correo = $1";
+        const result = await pool.query(text, [correo]);   
+        return result;
+    
+        } 
 
 
 
@@ -59,7 +59,7 @@ export const userModel = {
   findAll,
   findById,
   createUser,
-  findOne,
+  loginUser,
   updateUserById,
   removeUser
 };
