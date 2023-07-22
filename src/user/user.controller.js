@@ -62,7 +62,8 @@ const regiterUsuario = async (req, res) => {
         const token = jwt.sign({ id_usuario: newUser.id_usuario }, process.env.JWT_SECRET)
         const { password: _, ...user } = newUser;
         return res.status(201).json({
-            user
+            user,
+            token
         })
 
     } catch (error) {
@@ -112,7 +113,8 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const { id_usuario } = req.params;
     try {
-        const result = await userModel.remove(id_usuario);
+        //error en llammado al user model tenia remove
+        const result = await userModel.removeUser(id_usuario);
         return res.status(200).json({ ok: true, result });
     } catch (error) {
         const { status, message } = handleErrors(error.code);
