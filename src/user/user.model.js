@@ -40,13 +40,18 @@ const findById = async(id)=>{
   }
   return rows[0];
 };
-
+const removeUser = async (id_usuario) => {
+  const text = "DELETE FROM posts WHERE id_usuario = $1 RETURNING* "
+  const { rows} = await pool.query (text, [id_usuario])
+  return rows [0];
+}
 
 export const userModel = {
   findAll,
   findById,
   createUser,
   findOne,
-  updateUserById
+  updateUserById,
+  removeUser
 };
 
