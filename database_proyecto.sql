@@ -21,7 +21,7 @@ CREATE TABLE usuarios (
 	rol varchar(20)
 );
 
---    SELECT * FROM usuarios;
+-- SELECT * FROM usuarios;
 --     SELECT * FROM platos;
 
 --    SELECT * FROM  usuarios WHERE id_usuario = 1
@@ -46,7 +46,6 @@ CREATE TABLE categorias (
 INSERT INTO categorias (nombre_categoria) VALUES 
 	('plato fondo'),
 	('postre');
-
 
 
 CREATE TABLE platos (
@@ -78,8 +77,6 @@ CREATE TABLE platos (
 
 
 
-
-
 CREATE TABLE favoritos (
   id_favorito serial primary key,
   id_usuario integer REFERENCES usuarios (id_usuario) ON DELETE CASCADE,
@@ -103,9 +100,3 @@ CREATE TABLE carrito (
 	id_pedido integer REFERENCES pedidos (id_pedido) ON DELETE CASCADE,
 	procesado boolean
 );
-
-
-
-
-
-
