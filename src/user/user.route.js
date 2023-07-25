@@ -16,6 +16,7 @@ import {userController} from "./user.controller.js";
 
 const router = Router();
 
+
 router.get('/', userController.getRaiz);
 router.get('/usuario',  userController.getAllUser);
 router.get('/usuario/:id_usuario', verifyToken, userController.getIdUser)
