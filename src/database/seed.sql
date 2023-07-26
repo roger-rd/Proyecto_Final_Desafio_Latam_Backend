@@ -13,7 +13,7 @@ CREATE TABLE usuarios (
 	nombre varchar (50) ,
 	apellido varchar (50),
 	rut varchar(10),
-	telefono int,
+	telefono int (9),
 	direccion varchar(100),
 	numero_de_direccion int,
 	correo varchar (50) UNIQUE,
