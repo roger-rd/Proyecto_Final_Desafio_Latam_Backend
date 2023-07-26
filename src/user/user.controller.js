@@ -107,8 +107,6 @@ const updateUser = async (req, res) => {
         const result = await userModel.updateUserById(id_usuario,{ nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol  })
         
         return res.status(200).json({ ok: true, result });
-       
-        
     } catch (error) {
         const { status, message } = handleErrors(error.code);
         console.log(error, message);
@@ -122,7 +120,7 @@ const deleteUser = async (req, res) => {
         const {id_usuario}= req.params;
        
         const deleteUser = await userModel.removeUser(id_usuario);
-
+        
         if(deleteUser){
             res.send(deleteUser);
         }else{
