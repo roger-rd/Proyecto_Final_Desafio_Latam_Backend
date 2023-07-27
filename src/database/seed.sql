@@ -16,6 +16,7 @@ CREATE TABLE usuarios (
 	telefono int (9),
 	direccion varchar(100),
 	numero_de_direccion int,
+	comuna varchar (50)
 	correo varchar (50) UNIQUE,
 	password varchar(100),
 	rol varchar(20)

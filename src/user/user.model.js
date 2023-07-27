@@ -15,9 +15,9 @@ const findById = async(id)=>{
 
 
 const createUser = async (user) => {
-  const { nombre  ,	apellido ,	rut ,telefono ,direccion,numero_de_direccion,correo ,password,rol} = user;
-  const query = 'INSERT INTO usuarios (nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
-  const values = [nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol];
+  const { nombre  ,	apellido ,	rut ,telefono ,direccion,numero_de_direccion,comuna,correo ,password,rol} = user;
+  const query = 'INSERT INTO usuarios (nombre  ,	apellido ,	rut ,telefono ,direccion,numero_de_direccion,comuna,correo ,password,rol) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10) RETURNING *';
+  const values = [nombre  ,	apellido ,	rut ,telefono ,direccion,numero_de_direccion,comuna,correo ,password,rol];
   const { rows } = await pool.query(query, values);
   return rows[0];
 };

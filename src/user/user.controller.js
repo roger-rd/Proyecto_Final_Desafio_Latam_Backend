@@ -44,7 +44,7 @@ const getIdUser = async (req, res) => {
 
 
 const regiterUsuario = async (req, res) => {
-    const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol } = req.body;
+    const { nombre  ,	apellido ,	rut ,telefono ,direccion,numero_de_direccion,comuna,correo ,password,rol } = req.body;
 
     try {
         const newUser = await userModel.createUser({
@@ -54,6 +54,7 @@ const regiterUsuario = async (req, res) => {
             telefono,
             direccion,
             numero_de_direccion,
+            comuna,
             correo,
             password: bcript.hashSync(password, 10),
             rol
