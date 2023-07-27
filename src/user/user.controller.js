@@ -44,7 +44,7 @@ const getIdUser = async (req, res) => {
 
 
 const regiterUsuario = async (req, res) => {
-    const { nombre, apellido, rut, telefono,correo, password, direccion, numero_de_direccion,  rol } = req.body;
+    const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol } = req.body;
 
     try {
         const newUser = await userModel.createUser({
@@ -52,10 +52,10 @@ const regiterUsuario = async (req, res) => {
             apellido,
             rut,
             telefono,
-            correo,
-            password: bcript.hashSync(password, 10),
             direccion,
             numero_de_direccion,
+            correo,
+            password: bcript.hashSync(password, 10),
             rol
         });
 
@@ -96,7 +96,7 @@ const loginUsuario = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const { id_usuario } = req.params;
-    const { nombre, apellido, rut, telefono, correo, password, direccion, numero_de_direccion, rol  } = req.body
+    const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol  } = req.body
     try {
         
         const existingUser = await userModel.findById(id_usuario);
@@ -104,7 +104,7 @@ const updateUser = async (req, res) => {
             return res.status(400).json({ ok: false, message: "No se encontró ningún usuario con ese ID" });
         }
         
-        const result = await userModel.updateUserById(id_usuario,{ nombre, apellido, rut, telefono, correo, password, direccion, numero_de_direccion, rol  })
+        const result = await userModel.updateUserById(id_usuario,{ nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol  })
         
         return res.status(200).json({ ok: true, result });
     } catch (error) {
@@ -133,19 +133,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-const contenidoUsuario = async (req, res) => {
-    const userCorreo = req.correo
-    try {
-        const result = await userModel.verUsuario(userCorreo);
-        const {correo} = result;
-        console.log("Result:", result);
-        return res.json({nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion});
-    } catch (error) {
-        console.log(error)
-        const { status, message } = handleErrors(error.code)
-        return res.status(status).json({ ok: false, result: message });
-    }
-}
+
 
 
 export const userController = {
@@ -155,6 +143,5 @@ export const userController = {
     regiterUsuario,
     loginUsuario,
     updateUser,
-    deleteUser,
-    contenidoUsuario
+    deleteUser
 };
