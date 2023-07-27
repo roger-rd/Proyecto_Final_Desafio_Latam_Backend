@@ -21,7 +21,11 @@ export const verifyTokenUser = async (req, res, next) => {
         }
 
         console.log("Usuario autenticado con éxito: ", userDB.correo)
+        req.correo = payload.correo;
+       
         next()
+
+
     } catch (error) {
         const { status, message } = handleErrors(error.code)
         console.log(error, message)

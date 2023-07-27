@@ -9,6 +9,7 @@ const updateUserValidationSchema = Joi.object({
   numero_de_direccion: Joi.string().required(),
   correo: Joi.string().email().required(),
   password: Joi.string().required(),
+  comuna: Joi.string().trim().required(),
   rol: Joi.string().required(),
 });
 

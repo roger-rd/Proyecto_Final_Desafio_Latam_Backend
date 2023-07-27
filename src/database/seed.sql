@@ -28,18 +28,17 @@ CREATE TABLE usuarios (
 --     SELECT * FROM platos;
 
 --    SELECT * FROM  usuarios WHERE id_usuario = 1
--- INSERT INTO usuarios (nombre  ,	apellido ,	rut ,telefono ,direccion,numero_de_direccion,correo ,password,rol) VALUES(
---   'Juan',
---   'Pérez',
---   '12345678-9',
---   '+1234567890',
---   'Calle 123',
---   '123',
---   'juan@example.com',
---   '123456',
---   'usuario'
--- )
-
+INSERT INTO usuarios (nombre  ,	apellido ,	rut ,telefono ,correo ,password,direccion,numero_de_direccion,rol) VALUES(
+  'Juan',
+  'Pérez',
+  '26712419-1',
+  '123456789',
+'juan@example.com',
+  '123456',
+  'Calle 123',
+  '123',
+  'usuario'
+);
 
 CREATE TABLE categorias (
   id_categoria serial primary key,

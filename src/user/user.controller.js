@@ -135,7 +135,7 @@ const deleteUser = async (req, res) => {
 };
 
 const contenidoUsuario = async (req, res) => {
-    const userEmail = req.email
+    const userCorreo = req.correo
     try {
         const result = await usuariosModel.verUsuario(userEmail);
         const {nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna} = result;
