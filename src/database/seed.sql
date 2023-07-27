@@ -18,8 +18,6 @@ CREATE TABLE usuarios (
 	numero_de_direccion int,
 	correo varchar (50) UNIQUE,
 	password varchar(100),
-	direccion varchar(100),
-	numero_de_direccion int,
 	rol varchar(20)
 );
 
