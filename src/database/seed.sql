@@ -13,17 +13,27 @@ CREATE TABLE usuarios (
 	nombre varchar (50) ,
 	apellido varchar (50),
 	rut varchar(10),
-	telefono int (9),
+	telefono varchar (10),
 	direccion varchar(100),
 	numero_de_direccion int,
-	comuna varchar (50)
 	correo varchar (50) UNIQUE,
 	password varchar(100),
+	direccion varchar(100),
+	numero_de_direccion int,
 	rol varchar(20)
 );
 
--- SELECT * FROM usuarios;
+--SELECT nombre,apellido,rut,correo,telefono, direccion,numero_de_direccion,comuna FROM usuarios WHERE email = $1
+
+ SELECT * FROM usuarios;
 --     SELECT * FROM platos;
+
+-- SELECT nombre,apellido,rut,telefono,correo,password,direccion,numero_de_direccion,comuna FROM usuarios WHERE correo = 1;
+
+-- SELECT nombre, apellido, rut, telefono, correo, password, direccion, numero_de_direccion, comuna
+-- FROM usuarios
+-- WHERE correo = $1;
+
 
 --    SELECT * FROM  usuarios WHERE id_usuario = 1
 -- INSERT INTO usuarios (nombre  ,	apellido ,	rut ,telefono ,direccion,numero_de_direccion,correo ,password,rol) VALUES(
