@@ -138,9 +138,9 @@ const deleteUser = async (req, res) => {
 };
 
 const contenidoUsuario = async (req, res) => {
-    const userid = req.params.id_usuario
+    const userCorreo = req.email;
     try {
-        const result = await userModel.verUsuario(userid);
+        const result = await userModel.verUsuario(userCorreo);
         const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol} = result;
         return res.json({nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol});
     } catch (error) {

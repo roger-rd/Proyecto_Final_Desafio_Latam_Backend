@@ -53,13 +53,13 @@ const removeUser = async (id_usuario) => {
 
 
 
-const verUsuario = async (id_usuario) => {
+const verUsuario = async (correo) => {
     try {
    
 
-        const text = "SELECT nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol FROM usuarios WHERE id_usuario = $1";
+        const text = "SELECT nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol FROM usuarios WHERE correo = $1";
         
-        const {rows} = await pool.query(text, [id_usuario])
+        const {rows} = await pool.query(text, [correo])
         return rows[0]
     } catch (error) {
         console.log(error)
