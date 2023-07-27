@@ -131,6 +131,19 @@ const deleteUser = async (req, res) => {
         console.log(error, message);
         return res.status(status).json({ ok: false, result: message });
     }
+};
+
+const contenidoUsuario = async (req, res) => {
+    const userEmail = req.email
+    try {
+        const result = await usuariosModel.verUsuario(userEmail);
+        const {nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna} = result;
+        return res.json({nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna});
+    } catch (error) {
+        console.log(error)
+        const { status, message } = handleErrors(error.code)
+        return res.status(status).json({ ok: false, result: message });
+    }
 }
 
 
@@ -141,5 +154,6 @@ export const userController = {
     regiterUsuario,
     loginUsuario,
     updateUser,
-    deleteUser
+    deleteUser,
+    contenidoUsuario
 };
