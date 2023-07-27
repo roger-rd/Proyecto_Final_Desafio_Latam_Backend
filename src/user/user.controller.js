@@ -138,7 +138,7 @@ const deleteUser = async (req, res) => {
 };
 
 const contenidoUsuario = async (req, res) => {
-    const userid = req.id_usuario
+    const userid = req.params.id_usuario
     try {
         const result = await userModel.verUsuario(userid);
         const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol} = result;

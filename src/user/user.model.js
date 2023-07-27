@@ -55,7 +55,7 @@ const removeUser = async (id_usuario) => {
 
 const verUsuario = async (id_usuario) => {
     try {
-        validateEmail(id_usuario);
+   
 
         const text = "SELECT nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol FROM usuarios WHERE id_usuario = $1";
         
