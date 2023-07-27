@@ -78,9 +78,13 @@ const loginUsuario = async (req, res) => {
 
     try {
         const result = await userModel.loginUser(correo);
-        if (!result.rowCount) {
-            return res.status(400).json({ error: "invalid credencial" })
+        if (result.rows.length === 0) {
+            return res.status(400).json({ error: "invalid credentials" });
         }
+        
+        // if (!result.rowCount) {
+        //     return res.status(400).json({ error: "invalid credencial" })
+        // }
         const user = result.rows[0];
         const token = jwt.sign({ id_usuario: user.id_usuario }, process.env.JWT_SECRET)
 
