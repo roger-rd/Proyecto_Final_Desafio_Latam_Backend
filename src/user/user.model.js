@@ -52,12 +52,30 @@ const removeUser = async (id_usuario) => {
 
 
 
+
+const verUsuario = async (id_usuario) => {
+    try {
+        validateEmail(id_usuario);
+
+        const text = "SELECT nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol FROM usuarios WHERE id_usuario = $1";
+        
+        const {rows} = await pool.query(text, [id_usuario])
+        return rows[0]
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+
+
 export const userModel = {
   findAll,
   findById,
   createUser,
   loginUser,
   updateUserById,
-  removeUser
+  removeUser,
+  verUsuario
 };
 
