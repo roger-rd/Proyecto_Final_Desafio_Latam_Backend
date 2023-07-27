@@ -33,9 +33,9 @@ const loginUser = async (correo) =>{
  
 
 const updateUserById = async (id_usuario, updates) => {
-  const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol } = updates;
-  const query = 'UPDATE usuarios SET nombre = $1, apellido = $2, rut = $3,  telefono = $4,correo = $5, password = $6, direccion = $7, numero_de_direccion = $8, comuna= $9  rol = $10 WHERE id_usuario = $11 RETURNING *';
-  const values = [nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol, id_usuario];
+  const {nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna } = updates;
+  const query = 'UPDATE usuarios SET nombre = $1, apellido = $2, rut = $3,  telefono = $4,correo = $5, password = $6, direccion = $7, numero_de_direccion = $8, comuna = $9  rol = $10 WHERE id_usuario = $11 RETURNING *';
+  const values = [nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna, id_usuario];
   const { rows } = await pool.query(query, values);
   return rows[0];
   

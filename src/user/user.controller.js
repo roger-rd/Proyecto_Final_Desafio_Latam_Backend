@@ -44,7 +44,7 @@ const getIdUser = async (req, res) => {
 
 
 const regiterUsuario = async (req, res) => {
-    const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol } = req.body;
+    const { nombre, apellido, rut, telefono,correo, password, direccion, numero_de_direccion,comuna,  rol } = req.body;
 
     try {
         const newUser = await userModel.createUser({
@@ -52,10 +52,11 @@ const regiterUsuario = async (req, res) => {
             apellido,
             rut,
             telefono,
-            direccion,
-            numero_de_direccion,
             correo,
             password: bcript.hashSync(password, 10),
+            direccion,
+            numero_de_direccion,
+            comuna,
             rol
         });
 
@@ -96,7 +97,7 @@ const loginUsuario = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const { id_usuario } = req.params;
-    const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol  } = req.body
+    const { nombre, apellido, rut, telefono, correo, password, direccion, numero_de_direccion,comuna, rol  } = req.body
     try {
         
         const existingUser = await userModel.findById(id_usuario);
@@ -104,7 +105,7 @@ const updateUser = async (req, res) => {
             return res.status(400).json({ ok: false, message: "No se encontró ningún usuario con ese ID" });
         }
         
-        const result = await userModel.updateUserById(id_usuario,{ nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol  })
+        const result = await userModel.updateUserById(id_usuario,{ nombre, apellido, rut, telefono, correo, password, direccion, numero_de_direccion,comuna, rol  })
         
         return res.status(200).json({ ok: true, result });
     } catch (error) {
