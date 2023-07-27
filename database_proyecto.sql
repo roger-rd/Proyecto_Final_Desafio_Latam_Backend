@@ -13,31 +13,30 @@ CREATE TABLE usuarios (
 	nombre varchar (50) ,
 	apellido varchar (50),
 	rut varchar(10),
-	telefono varchar (10),
-	correo varchar (50) UNIQUE,
-	password varchar(100),
+	telefono int,
 	direccion varchar(100),
 	numero_de_direccion int,
+	correo varchar (50) UNIQUE,
+	password varchar(100),
 	rol varchar(20)
 );
 
---SELECT nombre,apellido,rut,correo,telefono, direccion,numero_de_direccion,comuna FROM usuarios WHERE email = $1
-
- SELECT * FROM usuarios;
+-- SELECT * FROM usuarios;
 --     SELECT * FROM platos;
 
 --    SELECT * FROM  usuarios WHERE id_usuario = 1
-INSERT INTO usuarios (nombre  ,	apellido ,	rut ,telefono ,correo ,password,direccion,numero_de_direccion,rol) VALUES(
-  'Juan',
-  'Pérez',
-  '26712419-1',
-  '123456789',
-'juan@example.com',
-  '123456',
-  'Calle 123',
-  '123',
-  'usuario'
-);
+-- INSERT INTO usuarios (nombre  ,	apellido ,	rut ,telefono ,direccion,numero_de_direccion,correo ,password,rol) VALUES(
+--   'Juan',
+--   'Pérez',
+--   '12345678-9',
+--   '+1234567890',
+--   'Calle 123',
+--   '123',
+--   'juan@example.com',
+--   '123456',
+--   'usuario'
+-- )
+
 
 CREATE TABLE categorias (
   id_categoria serial primary key,

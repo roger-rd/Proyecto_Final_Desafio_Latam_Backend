@@ -9,7 +9,7 @@ const createSchema = Joi.object({
   numero_de_direccion: Joi.number().integer().min(1).required(),
   correo: Joi.string().trim().email().required(),
   password: Joi.string().trim().min(6).required(),
-  comuna: Joi.string().trim().required(),
+  // comuna: Joi.string().trim().required(),
   rol: Joi.string().trim().min(3).required(),
 });
 
