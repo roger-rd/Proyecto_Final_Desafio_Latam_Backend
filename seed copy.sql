@@ -18,6 +18,7 @@ CREATE TABLE usuarios (
 	password varchar(100),
 	direccion varchar(100),
 	numero_de_direccion int,
+	comuna varchar (50),
 	rol varchar(20)
 );
 
@@ -26,13 +27,20 @@ CREATE TABLE usuarios (
  SELECT * FROM usuarios;
 --     SELECT * FROM platos;
 
+-- SELECT nombre,apellido,rut,telefono,correo,password,direccion,numero_de_direccion,comuna FROM usuarios WHERE correo = 1;
+
+-- SELECT nombre, apellido, rut, telefono, correo, password, direccion, numero_de_direccion, comuna
+-- FROM usuarios
+-- WHERE correo = $1;
+
+
 --    SELECT * FROM  usuarios WHERE id_usuario = 1
 INSERT INTO usuarios (nombre  ,	apellido ,	rut ,telefono ,correo ,password,direccion,numero_de_direccion,rol) VALUES(
   'Juan',
   'Pérez',
   '26712419-1',
   '123456789',
-'juan@example.com',
+'juan1@example.com',
   '123456',
   'Calle 123',
   '123',

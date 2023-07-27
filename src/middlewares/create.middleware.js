@@ -10,7 +10,7 @@ const createSchema = Joi.object({
   correo: Joi.string().trim().email().required(),
   password: Joi.string().trim().min(6).required(),
   rol: Joi.string().trim().min(3).required(),
-  comuna: Joi.string().trim().min(3).required()
+  // comuna: Joi.string().trim().min(3).required()
 });
 
 export const createValidateBody = (req, res, next) => {

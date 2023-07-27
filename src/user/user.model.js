@@ -15,9 +15,9 @@ const findById = async(id)=>{
 
 
 const createUser = async (user) => {
-  const { nombre, apellido, rut,correo, password, telefono, direccion, numero_de_direccion,comuna,  rol} = user;
-  const query = 'INSERT INTO usuarios (nombre, apellido, rut, correo, password, telefono, direccion, numero_de_direccion,comuna,  rol) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,10) RETURNING *';
-  const values = [nombre, apellido, rut,correo, password, telefono, direccion, numero_de_direccion, comuna,  rol];
+  const { nombre, apellido, rut,correo, password, telefono, direccion, numero_de_direccion,  rol} = user;
+  const query = 'INSERT INTO usuarios (nombre, apellido, rut, correo, password, telefono, direccion, numero_de_direccion,  rol) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
+  const values = [nombre, apellido, rut,correo, password, telefono, direccion, numero_de_direccion,  rol];
   const { rows } = await pool.query(query, values);
   return rows[0];
 };
@@ -33,9 +33,9 @@ const loginUser = async (correo) =>{
  
 
 const updateUserById = async (id_usuario, updates) => {
-  const {nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna } = updates;
-  const query = 'UPDATE usuarios SET nombre = $1, apellido = $2, rut = $3,  telefono = $4,correo = $5, password = $6, direccion = $7, numero_de_direccion = $8, comuna = $9  rol = $10 WHERE id_usuario = $11 RETURNING *';
-  const values = [nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna, id_usuario];
+  const {nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion} = updates;
+  const query = 'UPDATE usuarios SET nombre = $1, apellido = $2, rut = $3,  telefono = $4,correo = $5, password = $6, direccion = $7, numero_de_direccion = $9  rol = $10 WHERE id_usuario = $11 RETURNING *';
+  const values = [nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion, id_usuario];
   const { rows } = await pool.query(query, values);
   return rows[0];
   
@@ -51,7 +51,7 @@ const removeUser = async (id_usuario) => {
 
 const verUsuario = async (correo) => {
   try {
-      const text = "SELECT nombre, apellido, rut, telefono, correo, password, direccion, numero_de_direccion, comuna  FROM usuarios  WHERE correo = $1"
+      const text = "SELECT nombre, apellido, rut, telefono, correo, password, direccion, numero_de_direccion FROM usuarios  WHERE correo = $1"
       const { rows } = await pool.query(text, [correo]);
       console.log("Rows:", rows); // Agregar este registro para verificar los resultados
       return rows[0];

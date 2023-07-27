@@ -18,7 +18,6 @@ CREATE TABLE usuarios (
 	password varchar(100),
 	direccion varchar(100),
 	numero_de_direccion int,
-	comuna varchar (50),
 	rol varchar(20)
 );
 
