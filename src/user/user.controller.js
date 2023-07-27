@@ -138,11 +138,11 @@ const deleteUser = async (req, res) => {
 };
 
 const contenidoUsuario = async (req, res) => {
-    const userCorreo = req.email;
+    const userCorreo = req.correo;
     try {
         const result = await userModel.verUsuario(userCorreo);
-        const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol} = result;
-        return res.json({nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol});
+        const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol} = result;
+        return res.json({nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo,  rol});
     } catch (error) {
         console.log(error)
         const { status, message } = handleErrors(error.code)
