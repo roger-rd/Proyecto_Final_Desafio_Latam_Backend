@@ -137,8 +137,9 @@ const deleteUser = async (req, res) => {
 const contenidoUsuario = async (req, res) => {
     const userCorreo = req.correo
     try {
-        const result = await usuariosModel.verUsuario(userEmail);
-        const {nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna} = result;
+        const result = await userModel.verUsuario(userCorreo);
+        const {correo} = result;
+        console.log("Result:", result);
         return res.json({nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna});
     } catch (error) {
         console.log(error)

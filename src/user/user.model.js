@@ -16,7 +16,7 @@ const findById = async(id)=>{
 
 const createUser = async (user) => {
   const { nombre, apellido, rut,correo, password, telefono, direccion, numero_de_direccion,comuna,  rol} = user;
-  const query = 'INSERT INTO usuarios (nombre, apellido, rut, correo, password, telefono, direccion, numero_de_direccion,comuna,  rol) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
+  const query = 'INSERT INTO usuarios (nombre, apellido, rut, correo, password, telefono, direccion, numero_de_direccion,comuna,  rol) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,10) RETURNING *';
   const values = [nombre, apellido, rut,correo, password, telefono, direccion, numero_de_direccion, comuna,  rol];
   const { rows } = await pool.query(query, values);
   return rows[0];
@@ -51,15 +51,15 @@ const removeUser = async (id_usuario) => {
 
 const verUsuario = async (correo) => {
   try {
-      validateCorreo(correo);
-      const text = "SELECT nombre,apellido,rut,telefono,correo,password, direccion,numero_de_direccion,comuna FROM usuarios WHERE correo = $1";
-      const {rows} = await pool.query(text, [correo])
-      return rows[0]
+      const text = "SELECT nombre, apellido, rut, telefono, correo, password, direccion, numero_de_direccion, comuna  FROM usuarios  WHERE correo = $1"
+      const { rows } = await pool.query(text, [correo]);
+      console.log("Rows:", rows); // Agregar este registro para verificar los resultados
+      return rows[0];
   } catch (error) {
-      console.log(error)
-      throw error
+      console.log(error);
+      throw error;
   }
-}     
+};
 
 export const userModel = {
   findAll,
