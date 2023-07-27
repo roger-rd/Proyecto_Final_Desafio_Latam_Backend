@@ -19,7 +19,7 @@ const router = Router();
 
 router.get('/', userController.getRaiz);
 router.get('/usuario',  userController.getAllUser);
-router.get('/perfil/:id_usuario', verifyToken, userController.contenidoUsuario)
+router.get('/perfil', verifyToken, userController.contenidoUsuario)
 router.post('/register', createValidateBody, userController.regiterUsuario )
 router.post ('/login',loginValidateBody,verifyTokenUser, userController.loginUsuario );
 router.put('/update/:id_usuario', validateUpdateUser ,userController.updateUser);
