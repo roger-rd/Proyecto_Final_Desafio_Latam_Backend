@@ -27,30 +27,19 @@ const getAllUser = async (req, res) => {
     }
 };
 
-// const getIdUser = async (req, res) => {
-//     const { id_usuario } = req.params
-//     try {
-//         const usuario = await userModel.findById(id_usuario);
-//         if (usuario) res.status(200).send(usuario)
-//         else res.status(404).send({ message: "No se encontró ningún usuario con ese id" })
-//     } catch (error) {
-//         const { status, message } = handleErrors(error.code);
-//         console.log(error, message);
-//         return res.status(status).json({ ok: false, result: message });
-//     }
-// };
 const getIdUser = async (req, res) => {
-    const { correo } = req.correo
+    const { id_usuario } = req.params
     try {
-        const usuario = await userModel.findById(correo);
+        const usuario = await userModel.findById(id_usuario);
         if (usuario) res.status(200).send(usuario)
-        else res.status(404).send({ message: "No se encontró ningún usuario con ese correo" })
+        else res.status(404).send({ message: "No se encontró ningún usuario con ese id" })
     } catch (error) {
         const { status, message } = handleErrors(error.code);
         console.log(error, message);
         return res.status(status).json({ ok: false, result: message });
     }
 };
+
 
 
 
@@ -148,23 +137,10 @@ const deleteUser = async (req, res) => {
     }
 };
 
-// const contenidoUsuario = async (req, res) => {
-//     const userCorreo = req.correo;
-//     try {
-//         const result = await userModel.verUsuario(userCorreo);
-//         const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol} = result;
-//         return res.json({nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo,  rol});
-//     } catch (error) {
-//         console.log(error)
-//         const { status, message } = handleErrors(error.code)
-//         return res.status(status).json({ ok: false, result: message });
-//     }
-// }
-
 const contenidoUsuario = async (req, res) => {
     const userCorreo = req.correo;
     try {
-        const result = await userModel.findById(userCorreo);
+        const result = await userModel.verUsuario(userCorreo);
         const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol} = result;
         return res.json({nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo,  rol});
     } catch (error) {
@@ -173,6 +149,8 @@ const contenidoUsuario = async (req, res) => {
         return res.status(status).json({ ok: false, result: message });
     }
 }
+
+
 
 
 
