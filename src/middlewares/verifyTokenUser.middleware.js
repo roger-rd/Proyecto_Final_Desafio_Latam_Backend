@@ -8,17 +8,20 @@ export const verifyTokenUser = async (req, res, next) => {
         if (!correo || !password) {
             throw { code: "403" };
         }
+        const { rows: [userDB], rowCount } = await userModel.loginUser(correo);
 
         const result = await userModel.loginUser(correo);
+        
         if (!result.rowCount) {
             throw { code: "error en correo" };
         }
 
-        const userDB = result.rows[0]; // El primer usuario encontrado
+        // const userDB = result.rows[0]; // El primer usuario encontrado
+      
         const validatePassword = await bcrypt.compare(password, userDB.password);
-        if (!validatePassword) {
+       if (!validatePassword) {
             throw { code: "error de contraseña" };
-        }
+      }
 
         console.log("Usuario autenticado con éxito: ", userDB.correo)
         // req.correo = payload.correo;
