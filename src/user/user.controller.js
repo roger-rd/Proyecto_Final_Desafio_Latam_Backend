@@ -245,17 +245,43 @@ const regiterUsuario = async (req, res) => {
     }
 }
 
+// const loginUsuario = async (req, res) => {
+//     const { correo, password } = req.body;
+  
+//     try {
+//       const result = await userModel.loginUser(correo);
+//       if (result.rows.length === 0) {
+//         return res.status(400).json({ error: "invalid credentials" });
+//       }
+          
+//       const user = result.rows[0];
+//       const token = jwt.sign({ correo: user.correo }, process.env.JWT_SECRET);
+  
+//       return res.status(200).json({ token, correo: user.correo });
+//     } catch (error) {
+//       const { status, message } = handleErrors(error.code);
+//       console.log(error, message);
+//       return res.status(status).json({ ok: false, result: message });
+//     }
+//   };
+  
 const loginUsuario = async (req, res) => {
-    const { correo, password } = req.body;
+    const { correo } = req.body;
   
     try {
-      const result = await userModel.loginUser(correo);
-      if (result.rows.length === 0) {
-        return res.status(400).json({ error: "invalid credentials" });
-      }
+    //   const result = await userModel.loginUser(correo);
+    //   if (result.rows.length === 0) {
+    //     return res.status(400).json({ error: "invalid credentials" });
+    //   }
+    if (correo.length === 0) {
+        throw { message: "email no registrado"};
+        }
           
-      const user = result.rows[0];
-      const token = jwt.sign({ correo: user.correo }, process.env.JWT_SECRET);
+     //validación parámetros en middleware
+     const token = jwt.sign({ correo }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRATION,
+    })
+    console.log("Token: ", token)
   
       return res.status(200).json({ token, correo: user.correo });
     } catch (error) {
