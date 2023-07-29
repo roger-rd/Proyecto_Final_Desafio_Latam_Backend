@@ -312,7 +312,7 @@ const contenidoUsuario = async (req, res) => {
         const result = await userModel.verUsuario(userEmail);
         console.log("Datos del usuario:", result);
         const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol} = result;
-        return res.json({nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo,  rol});
+        return res.json({nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo,rol});
     } catch (error) {
         console.log(error)
         console.log("Error al obtener los datos del usuario:", error)

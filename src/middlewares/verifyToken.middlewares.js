@@ -16,7 +16,7 @@ export const verifyToken = ( req, res, next)=>{
         const payload = jwt.verify(token, process.env.JWT_SECRET);
         console.log(payload);
 
-        req.id_usuario = payload.id_usuario;
+        
         req.correo = payload.correo
 
         next();
