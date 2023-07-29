@@ -23,7 +23,7 @@ export const verifyTokenUser = async (req, res, next) => {
         console.log("Usuario autenticado con éxito: ", userDB.correo)
         // req.correo = payload.correo;
        
-        next()
+        next() 
 
 
     } catch (error) {
