@@ -283,7 +283,7 @@ const loginUsuario = async (req, res) => {
     })
     console.log("Token: ", token)
   
-      return res.status(200).json({ token, correo: user.correo });
+      return res.status(200).json({ token });
     } catch (error) {
       const { status, message } = handleErrors(error.code);
       console.log(error, message);
