@@ -6,9 +6,9 @@ const findAll = async ()=>{
   return rows;
 }
 
-const findById = async(id)=>{
-  const text = "SELECT * FROM  usuarios WHERE id_usuario = $1";
-  const {rows} = await pool.query(text,[id]);
+const findById = async(correo)=>{
+  const text = "SELECT * FROM  usuarios WHERE correo = $1";
+  const {rows} = await pool.query(text,[correo]);
   return rows[0];
 };
 
