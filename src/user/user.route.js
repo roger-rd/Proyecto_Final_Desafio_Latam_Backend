@@ -18,7 +18,7 @@ const router = Router();
 
 
 router.get('/', userController.getRaiz);
-router.get('/usuario', verifyToken, userController.getIdUser);
+router.get('/usuario', verifyToken, userController.contenidoUsuario);
 router.get('/perfil', verifyToken, userController.contenidoUsuario)
 //router.get('/perfil', userController.contenidoUsuario)
 router.post('/register', createValidateBody, userController.regiterUsuario )
