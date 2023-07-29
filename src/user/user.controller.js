@@ -138,10 +138,10 @@ const deleteUser = async (req, res) => {
 };
 
 const contenidoUsuario = async (req, res) => {
-    const userCorreo = req.correo;
+    const userIdUsuario = req.id_usuario;
     console.log("Token recibido:", req.headers.authorization)
     try {
-        const result = await userModel.verUsuario(userCorreo);
+        const result = await userModel.verUsuario(userIdUsuario);
         console.log("Datos del usuario:", result);
         const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol} = result;
         return res.json({nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo,  rol});
