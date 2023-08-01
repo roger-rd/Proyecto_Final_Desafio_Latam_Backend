@@ -6,6 +6,8 @@ const {Pool} = pkg;
 
 
 const connectionString = process.env.PG_URL;
+//export const pool = new Pool({allowExitOnIdle: true});
+
 
 export const pool = connectionString
   ? new Pool({
