@@ -39,6 +39,8 @@ const updateUserById = async (id_usuario, updates) => {
   const values = [nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, id_usuario];
   const { rows } = await pool.query(query, values);
   return rows[0];
+  
+
 };
 
 
