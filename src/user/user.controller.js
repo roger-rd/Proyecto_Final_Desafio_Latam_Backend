@@ -92,7 +92,7 @@ const loginUsuario = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const { id_usuario } = req.params;
-    const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol  } = req.body
+    const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password  } = req.body
     try {
         
         const existingUser = await userModel.findById(id_usuario);
@@ -100,7 +100,7 @@ const updateUser = async (req, res) => {
             return res.status(400).json({ ok: false, message: "No se encontró ningún usuario con ese ID" });
         }
         
-        const result = await userModel.updateUserById(id_usuario,{ nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol  })
+        const result = await userModel.updateUserById(id_usuario,{ nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password  })
         
         return res.status(200).json({ ok: true, result });
     } catch (error) {

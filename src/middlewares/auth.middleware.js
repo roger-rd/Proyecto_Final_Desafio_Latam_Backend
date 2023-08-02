@@ -10,7 +10,7 @@ const updateUserValidationSchema = Joi.object({
   correo: Joi.string().email().required(),
   password: Joi.string().required(),
   // comuna: Joi.string().trim().required(),
-  rol: Joi.string().required(),
+  // rol: Joi.string().required(),
 });
 
 const validateUpdateUser = (req, res, next) => {

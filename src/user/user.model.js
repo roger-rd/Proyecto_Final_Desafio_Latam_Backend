@@ -6,9 +6,9 @@ const findAll = async ()=>{
   return rows;
 }
 
-const findById = async(correo)=>{
-  const text = "SELECT * FROM  usuarios WHERE correo = $1";
-  const {rows} = await pool.query(text,[correo]);
+const findById = async(id_usuario)=>{
+  const text = "SELECT * FROM  usuarios WHERE id_usuario = $1";
+  const {rows} = await pool.query(text,[id_usuario]);
   return rows[0];
 };
 
@@ -34,13 +34,11 @@ const loginUser = async (correo) =>{
 
 
 const updateUserById = async (id_usuario, updates) => {
-  const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol } = updates;
-  const query = 'UPDATE usuarios SET nombre = $1, apellido = $2, rut = $3, telefono = $4, direccion = $5, numero_de_direccion = $6, correo = $7, password = $8, rol = $9 WHERE id_usuario = $10 RETURNING *';
-  const values = [nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, rol, id_usuario];
+  const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password,} = updates;
+  const query = 'UPDATE usuarios SET nombre = $1, apellido = $2, rut = $3, telefono = $4, direccion = $5, numero_de_direccion = $6, correo = $7, password = $8 WHERE id_usuario = $9 RETURNING *';
+  const values = [nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, id_usuario];
   const { rows } = await pool.query(query, values);
   return rows[0];
-  
-
 };
 
 

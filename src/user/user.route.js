@@ -11,16 +11,11 @@ import {userController} from "./user.controller.js";
 
 
 
-
-
-
 const router = Router();
-
 
 router.get('/', userController.getRaiz);
 router.get('/usuario', userController.getAllUser);
 router.get('/perfil', verifyToken, userController.contenidoUsuario)
-//router.get('/perfil', userController.contenidoUsuario)
 router.post('/register', createValidateBody, userController.regiterUsuario )
 router.post ('/login',loginValidateBody,verifyTokenUser, userController.loginUsuario );
 router.put('/update/:id_usuario', validateUpdateUser ,userController.updateUser);
