@@ -92,13 +92,14 @@ const loginUsuario = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const { id_usuario } = req.params;
+    console.log("ID de usuario recibido:", id_usuario)
     const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password  } = req.body
     try {
         
-        const existingUser = await userModel.findById(id_usuario);
-        if (!existingUser) {
-            return res.status(400).json({ ok: false, message: "No se encontró ningún usuario con ese ID" });
-        }
+        // const existingUser = await userModel.findById(id_usuario);
+        // if (!existingUser) {
+        //     return res.status(400).json({ ok: false, message: "No se encontró ningún usuario con ese ID" });
+        // }
         
         const result = await userModel.updateUserById(id_usuario,{ nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password  })
         
@@ -135,8 +136,8 @@ const contenidoUsuario = async (req, res) => {
     try {
         const result = await userModel.verUsuario(userEmail);
         console.log("Datos del usuario:", result);
-        const {nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol} = result;
-        return res.json({nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo,rol});
+        const {id_usuario,  nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol} = result;
+        return res.json({id_usuario, nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo,rol});
     } catch (error) {
         console.log(error)
         console.log("Error al obtener los datos del usuario:", error)

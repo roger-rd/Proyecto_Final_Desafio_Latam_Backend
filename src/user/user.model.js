@@ -33,14 +33,20 @@ const loginUser = async (correo) =>{
 
 
 
-const updateUserById = async (id_usuario, updates) => {
-  const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password,} = updates;
-  const query = 'UPDATE usuarios SET nombre = $1, apellido = $2, rut = $3, telefono = $4, direccion = $5, numero_de_direccion = $6, correo = $7, password = $8 WHERE id_usuario = $9 RETURNING *';
-  const values = [nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, id_usuario];
-  const { rows } = await pool.query(query, values);
-  return rows[0];
-  
+// const updateUserById = async (id_usuario, updates) => {
+//   const { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password,} = updates;
+//   const query = 'UPDATE usuarios SET nombre = $1, apellido = $2, rut = $3, telefono = $4, direccion = $5, numero_de_direccion = $6, correo = $7, password = $8 WHERE id_usuario = $9 RETURNING *';
+//   const values = [nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, id_usuario];
+//   const { rows } = await pool.query(query, values);
+//   return rows[0];
+// };
 
+const updateUserById = async (id_usuario, { nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password,}) => {
+  ;
+  const query = 'UPDATE usuarios SET nombre = $1, apellido = $2, rut = $3, telefono = $4, direccion = $5, numero_de_direccion = $6, correo = $7, password = $8 WHERE id_usuario = $9 RETURNING *';
+  const {rows} = await pool.query(query,[nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, password, id_usuario]);
+  
+  return rows[0];
 };
 
 
@@ -53,9 +59,20 @@ const removeUser = async (id_usuario) => {
 
 
 
+// const verUsuario = async (correo) => {
+//   try {
+//     const text = "SELECT  nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol, FROM usuarios WHERE correo = $1";
+//     const { rows } = await pool.query(text, [correo]);
+//     return rows[0];
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };
+
 const verUsuario = async (correo) => {
   try {
-    const text = "SELECT nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol FROM usuarios WHERE correo = $1";
+    const text = "SELECT  id_usuario,  nombre, apellido, rut, telefono, direccion, numero_de_direccion, correo, rol FROM usuarios WHERE correo = $1";
     const { rows } = await pool.query(text, [correo]);
     return rows[0];
   } catch (error) {
@@ -63,6 +80,7 @@ const verUsuario = async (correo) => {
     throw error;
   }
 };
+
 
 
 
