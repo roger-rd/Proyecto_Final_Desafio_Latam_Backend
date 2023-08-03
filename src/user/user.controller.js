@@ -41,17 +41,17 @@ const getIdUser = async (req, res) => {
 };
 
 const regiterUsuario = async (req, res) => {
-  const {
-    nombre,
-    apellido,
-    rut,
-    telefono,
-    direccion,
-    numero_de_direccion,
-    correo,
-    password,
-    rol,
-  } = req.body;
+    const {
+        nombre,
+        apellido,
+        rut,
+        telefono,
+        direccion,
+        numero_de_direccion,
+        correo,
+        password,
+        rol,
+    } = req.body;
 
     try {
     const newUser = await userModel.createUser({
@@ -187,12 +187,12 @@ const contenidoUsuario = async (req, res) => {
 };
 
 export const userController = {
-  getRaiz,
-  getAllUser,
-  getIdUser,
-  regiterUsuario,
-  loginUsuario,
-  updateUser,
-  deleteUser,
-  contenidoUsuario,
+    getRaiz,
+    getAllUser,
+    getIdUser,
+    regiterUsuario,
+    loginUsuario,
+    updateUser,
+    deleteUser,
+    contenidoUsuario,
 };
