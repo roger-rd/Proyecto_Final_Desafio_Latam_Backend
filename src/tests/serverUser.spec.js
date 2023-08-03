@@ -26,7 +26,7 @@ describe ("Probando las rutas del backend", ()=>{
             telefono: '+123456789',
             direccion: 'Calle Principal',
             numero_de_direccion: '123',
-            correo: 'test2010@example.com',
+            correo: 'test2020@example.com',
             password: '123456',
             rol: 'user',
         };
@@ -45,7 +45,7 @@ describe ("Probando las rutas del backend", ()=>{
 describe('POST /api/v1/user/login', () => {
   it('debe retornar un status code 200 y un token válido para un usuario existente con credenciales correctas', async () => {
     const loginData = {
-      correo: "test12@example.com",
+      correo: "rogerdavid.rd@gmail.com",
       password: '123456'
     };
 
@@ -89,7 +89,7 @@ describe("PUT /api/v1/user/update/:id_usuario/",() => {
         numero_de_direccion: "123",
         correo: "actualizado3@gmail.com",
         password: "$2a$10$Wb12Jv2St6ZCdPc92tsAXu.tF865OkXKqdBd.Q9LqnmIkEXinio8q",
-        rol: "admin"
+
       });
 
     expect(response.status).toBe(200);

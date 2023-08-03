@@ -83,7 +83,6 @@ const verUsuario = async (correo) => {
 
 
 
-
 export const userModel = {
   findAll,
   findById,
