@@ -186,6 +186,36 @@ const contenidoUsuario = async (req, res) => {
     }
 };
 
+const contenidoUsuarioDatosPersonales = async (req, res) => {
+    const userEmail = req.correo;
+    console.log("Token recibido:", req.headers.authorization);
+    try {
+    const result = await userModel.verUsuario(userEmail);
+    console.log("Datos del usuario:", result);
+    const {
+        id_usuario,
+        nombre,
+        apellido,
+        rut,
+        telefono,
+      
+    } = result;
+    return res.json({
+        id_usuario,
+        nombre,
+        apellido,
+        rut,
+        telefono,
+        
+        });
+    } catch (error) {
+        console.log(error);
+        console.log("Error al obtener los datos del usuario:", error);
+        const { status, message } = handleErrors(error.code);
+        return res.status(status).json({ ok: false, result: message });
+    }
+};
+
 export const userController = {
     getRaiz,
     getAllUser,
@@ -195,4 +225,5 @@ export const userController = {
     updateUser,
     deleteUser,
     contenidoUsuario,
+    contenidoUsuarioDatosPersonales
 };

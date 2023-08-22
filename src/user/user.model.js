@@ -49,6 +49,20 @@ const verUsuario = async (correo) => {
   }
 };
 
+const verUsuarioDatosPersonales = async (correo) => {
+  try {
+    const text = "SELECT  id_usuario,  nombre, apellido, rut, telefono, FROM usuarios WHERE correo = $1";
+    const { rows } = await pool.query(text, [correo]);
+    return rows[0];
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
+
+
 export const userModel = {
   findAll,
   findById,
@@ -56,6 +70,7 @@ export const userModel = {
   loginUser,
   updateUserById,
   removeUser,
-  verUsuario
+  verUsuario,
+  verUsuarioDatosPersonales
 };
 
